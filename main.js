@@ -1,6 +1,6 @@
 var w, h;
 
-var GRAVITY = 10;
+var GRAVITY = 2;
 
 let player;
 var bullets = [];
@@ -23,7 +23,7 @@ var setup = function() {
 
 var draw = function() {
   background(255);
-  p.update(keys);
+  p.update();
   if(mouseIsPressed) {
     p.shoot(mouseX, mouseY);
   }
@@ -40,7 +40,7 @@ var draw = function() {
 }
 
 var keyPressed = function() {
-  if(key == "w" || key == "ц") {
+  if(key == "w" || key == "ц" || key == " ") {
     keys.w = true;
   } else if(key == 'a' || key == 'ф') {
     keys.a = true;
@@ -48,13 +48,11 @@ var keyPressed = function() {
     keys.s = true;
   } else if(key == 'd' || key == 'в') {
     keys.d = true;
-  } else if(key == " ") {
-    keys.space = true;
   }
 }
 
 var keyReleased = function() {
-  if(key == "w" || key == "ц") {
+  if(key == "w" || key == "ц" || key == ' ') {
     keys.w = false;
   } else if(key == 'a' || key == 'ф') {
     keys.a = false;
@@ -62,8 +60,6 @@ var keyReleased = function() {
     keys.s = false;
   } else if(key == 'd' || key == 'в') {
     keys.d = false;
-  } else if(key == " ") {
-    keys.space = false;
   }
 }
 

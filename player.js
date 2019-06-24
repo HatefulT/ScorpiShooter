@@ -6,6 +6,7 @@ var PLAYER_W = 16,
 var Player = function(x, y) {
   this.x = x;
   this.y = y;
+  this.vy = 0;
   this.hp = 100;
   this.direction = true; // true - right, false - left;
   this.reload = 0;
@@ -17,24 +18,26 @@ Player.prototype.draw = function() {
   rect(this.x-PLAYER_W/2, this.y-PLAYER_H, PLAYER_W, PLAYER_H);
 }
 
-Player.prototype.update = function(k) {
+Player.prototype.update = function() {
   let cbox = this.getCBox();
 
-  var vx = 0,
-      vy = 0;
-  // if(k.w) jump();
-  if(k.a) vx -= PLAYER_SPEED;
-  if(k.d) vx += PLAYER_SPEED;
+  var vx = 0;
+  if(keys.w) this.jump();
+  if(keys.a) vx -= PLAYER_SPEED;
+  if(keys.d) vx += PLAYER_SPEED;
   if(this.x + vx + PLAYER_W/2 >= w || this.x + vx - PLAYER_W/2 < 0) vx = 0;
 
-  vy += GRAVITY;
+  this.vy += GRAVITY;
 
-  if(collide(moveCBox(cbox, vx, 0))) vx = 0;
-  if(collide(moveCBox(cbox, 0, vy))) vy = 0;
-  // if(collide(cbox)) console.log("AAAA");
+  let a = this.slowDownIfCollise(cbox, vx, this.vy);
+  vx = a.vx;
+  this.vy = a.vy;
+  // console.log(this.vy);
 
   this.x += vx;
-  this.y += vy;
+  this.y += this.vy;
+
+  this.vy *= 0.9;
 
   this.reload += (this.reload%RELOAD_TIME == 0) ? 0 : 1;
 }
@@ -47,7 +50,10 @@ Player.prototype.shoot = function(x, y) {
 }
 
 Player.prototype.jump = function() {
-
+  if(this.vy == 0) {
+    this.vy = -40;
+    keys.w = false;
+  }
 }
 
 Player.prototype.collide = function(x, y) {
@@ -60,6 +66,23 @@ Player.prototype.collide = function(x, y) {
 
 Player.prototype.getCBox = function () {
   return { x: this.x-PLAYER_W/2, y: this.y-PLAYER_H, x1: this.x+PLAYER_W/2, y1: this.y };
+};
+
+Player.prototype.slowDownIfCollise = function (cbox, vx, vy) {
+  var newVx = vx,
+      newVy = vy,
+      needToSlowAgain = false;
+  if(collide(moveCBox(cbox, vx, 0))) {
+    newVx /= 2;
+    needToSlowAgain = true;
+  }
+  if(collide(moveCBox(cbox, 0, vy))) {
+    newVy /= 2;
+    needToSlowAgain = true;
+  }
+  if(needToSlowAgain) {
+    return this.slowDownIfCollise(cbox, (abs(newVx) < 0.25 ? 0 : newVx), (abs(newVy) < 0.25 ? 0 : newVy));
+  } else return {vx: newVx, vy: newVy};
 };
 
 var moveCBox = function(cbox, dx, dy) {
