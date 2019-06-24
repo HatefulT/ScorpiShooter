@@ -13,5 +13,5 @@ Platform.prototype.draw = function () {
 };
 
 Platform.prototype.getCBox = function () {
-  return { x: this.x, y: this.y, x1: this.x+this.w, x2: this.y+PLATFORM_H };
+  return { x: this.x, y: this.y, x1: this.x+this.w, y1: this.y+PLATFORM_H };
 };

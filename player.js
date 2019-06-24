@@ -18,6 +18,8 @@ Player.prototype.draw = function() {
 }
 
 Player.prototype.update = function(k) {
+  let cbox = this.getCBox();
+
   var vx = 0,
       vy = 0;
   // if(k.w) jump();
@@ -26,6 +28,10 @@ Player.prototype.update = function(k) {
   if(this.x + vx + PLAYER_W/2 >= w || this.x + vx - PLAYER_W/2 < 0) vx = 0;
 
   vy += GRAVITY;
+
+  if(collide(moveCBox(cbox, vx, 0))) vx = 0;
+  if(collide(moveCBox(cbox, 0, vy))) vy = 0;
+  // if(collide(cbox)) console.log("AAAA");
 
   this.x += vx;
   this.y += vy;
@@ -50,4 +56,12 @@ Player.prototype.collide = function(x, y) {
       bx = this.x + PLAYER_W/2,
       by = this.y;
   return (x > ax && x < bx) && (y > ay && y < by);
+}
+
+Player.prototype.getCBox = function () {
+  return { x: this.x-PLAYER_W/2, y: this.y-PLAYER_H, x1: this.x+PLAYER_W/2, y1: this.y };
+};
+
+var moveCBox = function(cbox, dx, dy) {
+  return { x: cbox.x+dx, y: cbox.y+dy, x1: cbox.x1+dx, y1: cbox.y1+dy }
 }

@@ -17,8 +17,8 @@ var keys = {
 var setup = function() {
   w = window.innerWidth; h = window.innerHeight;
   createCanvas(w, h);
-  p = new Player(30, h-100);
-  platforms.push(new Platform(0, h-15, w));
+  p = new Player(30, h-200);
+  platforms.push(new Platform(0, h-115, w));
 }
 
 var draw = function() {
@@ -67,7 +67,7 @@ var keyReleased = function() {
   }
 }
 
-var collis = function(cbox) {
+var collide = function(cbox) {
   for(var i=0; i<platforms.length; i++) {
     if(intersect(cbox, platforms[i].getCBox())) return true;
   }
