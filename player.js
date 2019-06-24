@@ -1,12 +1,14 @@
 var PLAYER_W = 16,
     PLAYER_H = 20,
-    PLAYER_SPEED = 5;
+    PLAYER_SPEED = 5,
+    RELOAD_TIME = 20;
 
 var Player = function(x, y) {
   this.x = x;
   this.y = y;
   this.hp = 100;
   this.direction = true; // true - right, false - left;
+  this.reload = 0;
 }
 
 Player.prototype.draw = function() {
@@ -15,18 +17,30 @@ Player.prototype.draw = function() {
   rect(this.x-PLAYER_W/2, this.y-PLAYER_H, PLAYER_W, PLAYER_H);
 }
 
-Player.prototype.move = function(k) {
+Player.prototype.update = function(k) {
   var vx = 0,
       vy = 0;
   // if(k.w) jump();
   if(k.a) vx -= PLAYER_SPEED;
   if(k.d) vx += PLAYER_SPEED;
-  // if(k.s)
+  if(this.x + vx + PLAYER_W/2 >= w || this.x + vx - PLAYER_W/2 < 0) vx = 0;
+
+  vy += GRAVITY;
+
   this.x += vx;
   this.y += vy;
+
+  this.reload += (this.reload%RELOAD_TIME == 0) ? 0 : 1;
 }
 
-Player.prototype.shoot = function() {
+Player.prototype.shoot = function(x, y) {
+  if(this.reload % RELOAD_TIME != 0) return;
+  a = Math.atan2(y-this.y, x-this.x,);
+  bullets.push(new Bullet(this.x, this.y - PLAYER_H/2, BULLET_SPEED*cos(a), BULLET_SPEED*sin(a)));
+  this.reload = 1;
+}
+
+Player.prototype.jump = function() {
 
 }
 

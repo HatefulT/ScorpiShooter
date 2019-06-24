@@ -1,4 +1,5 @@
-var BULLET_W = 2;
+var BULLET_W = 4,
+    BULLET_SPEED = 10;
 
 var Bullet = function(x, y, vx, vy) {
   this.x = x;
@@ -8,8 +9,8 @@ var Bullet = function(x, y, vx, vy) {
 }
 
 Bullet.prototype.update = function () {
-  this.x += vx;
-  this.y += vy;
+  this.x += this.vx;
+  this.y += this.vy;
 }
 
 Bullet.prototype.draw = function () {
