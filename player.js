@@ -20,14 +20,14 @@ Player.prototype.move = function(k) {
       vy = 0;
   // if(k.w) jump();
   if(k.a) vx -= PLAYER_SPEED;
-  if(k.d) vy += PLAYER_SPEED;
+  if(k.d) vx += PLAYER_SPEED;
   // if(k.s)
   this.x += vx;
   this.y += vy;
 }
 
 Player.prototype.shoot = function() {
-  
+
 }
 
 Player.prototype.collide = function(x, y) {

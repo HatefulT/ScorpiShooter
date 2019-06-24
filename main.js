@@ -18,7 +18,7 @@ var setup = function() {
 
 var draw = function() {
   background(255);
-  p.move();
+  p.move(keys);
   p.draw();
 
   for(var i=0; i<bullets.length; i++) {
@@ -30,5 +30,23 @@ var draw = function() {
 var keyPressed = function() {
   if(key == "w" || key == "ц") {
     keys.w = true;
+  } else if(key == 'a' || key == 'ф') {
+    keys.a = true;
+  } else if(key == 's' || key == 'ы') {
+    keys.s = true;
+  } else if(key == 'd' || key == 'в') {
+    keys.d = true;
+  }
+}
+
+var keyReleased = function() {
+  if(key == "w" || key == "ц") {
+    keys.w = false;
+  } else if(key == 'a' || key == 'ф') {
+    keys.a = false;
+  } else if(key == 's' || key == 'ы') {
+    keys.s = false;
+  } else if(key == 'd' || key == 'в') {
+    keys.d = false;
   }
 }
