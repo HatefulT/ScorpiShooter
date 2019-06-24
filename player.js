@@ -1,7 +1,8 @@
 var PLAYER_W = 16,
     PLAYER_H = 20,
     PLAYER_SPEED = 5,
-    RELOAD_TIME = 20;
+    RELOAD_TIME = 20,
+    JUMP_SPEED = 20;
 
 var Player = function(x, y) {
   this.x = x;
@@ -32,12 +33,11 @@ Player.prototype.update = function() {
   let a = this.slowDownIfCollise(cbox, vx, this.vy);
   vx = a.vx;
   this.vy = a.vy;
-  // console.log(this.vy);
 
   this.x += vx;
   this.y += this.vy;
 
-  this.vy *= 0.9;
+  // this.vy *= 0.9; // friction
 
   this.reload += (this.reload%RELOAD_TIME == 0) ? 0 : 1;
 }
@@ -51,8 +51,7 @@ Player.prototype.shoot = function(x, y) {
 
 Player.prototype.jump = function() {
   if(this.vy == 0) {
-    this.vy = -40;
-    keys.w = false;
+    this.vy = -JUMP_SPEED;
   }
 }
 

@@ -1,6 +1,6 @@
 var w, h;
 
-var GRAVITY = 2;
+var GRAVITY = 1;
 
 let player;
 var bullets = [];
