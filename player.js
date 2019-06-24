@@ -51,7 +51,7 @@ Player.prototype.shoot = function(x, y) {
 
 Player.prototype.jump = function() {
   if(this.vy == 0) {
-    this.vy = -JUMP_SPEED;
+    this.vy -= JUMP_SPEED;
     keys.w = false;
   }
 }
