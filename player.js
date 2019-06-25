@@ -65,7 +65,7 @@ Player.prototype.getCBox = function () {
   return { x: this.x-PLAYER_W/2, y: this.y-PLAYER_H, x1: this.x+PLAYER_W/2, y1: this.y };
 };
 
-Player.prototype.slowDownIfCollise = function (cbox, vx, vy) {
+Player.prototype.slowDownIfCollise = function (cbox, vx, vy, depth) {
   var newVx = vx,
       newVy = vy,
       needToSlowAgain = false;
@@ -77,8 +77,10 @@ Player.prototype.slowDownIfCollise = function (cbox, vx, vy) {
     newVy /= 2;
     needToSlowAgain = true;
   }
-  if(needToSlowAgain) {
-    return this.slowDownIfCollise(cbox, (abs(newVx) < 0.5 ? 0 : newVx), (abs(newVy) < 0.5 ? 0 : newVy));
+  if(needToSlowAgain && (depth ? depth < 200 : true)) {
+    return this.slowDownIfCollise(cbox, (abs(newVx) < 0.5 ? 0 : newVx), (abs(newVy) < 0.5 ? 0 : newVy), depth+1);
+  } else if(depth > 200) {
+    return {vx: 0, vy: 0};
   } else return {vx: newVx, vy: newVy};
 };
 
