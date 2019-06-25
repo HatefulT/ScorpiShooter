@@ -1,6 +1,12 @@
 var w, h;
 
-var GRAVITY = 1;
+var PLAYER_W = 20,
+    PLAYER_H = 42,
+    PLAYER_SPEED = 5,
+    RELOAD_TIME = 20,
+    JUMP_SPEED = 20,
+    GRAVITY = 1,
+    JUMPING_COOLDOWN = JUMP_SPEED / GRAVITY + 2;
 
 let player;
 var bullets = [];
@@ -19,10 +25,13 @@ var setup = function() {
   createCanvas(w, h);
   p = new Player(30, h-200);
   platforms.push(new Platform(0, h-115, w));
+  platforms.push(new Platform(w/2-100, h/2+50, 200));
+  noSmooth();
 }
 
 var draw = function() {
-  background(255);
+  // background(255);
+  drawBackground();
   p.update();
   if(mouseIsPressed) {
     p.shoot(mouseX, mouseY);

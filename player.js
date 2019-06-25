@@ -1,22 +1,18 @@
-var PLAYER_W = 16,
-    PLAYER_H = 20,
-    PLAYER_SPEED = 5,
-    RELOAD_TIME = 20,
-    JUMP_SPEED = 20;
-
 var Player = function(x, y) {
   this.x = x;
   this.y = y;
   this.vy = 0;
   this.hp = 100;
-  this.direction = true; // true - right, false - left;
+  // this.direction = true; // true - right, false - left;
   this.reload = 0;
+  this.jump_cooldown = 0;
 }
 
 Player.prototype.draw = function() {
-  fill(255, 20, 20);
-  stroke(20, 20, 20);
-  rect(this.x-PLAYER_W/2, this.y-PLAYER_H, PLAYER_W, PLAYER_H);
+  push();
+  translate(this.x-PLAYER_W/2, this.y-PLAYER_H);
+  drawSprite(spritemap.player.normal, PLAYER_W, PLAYER_H);
+  pop();
 }
 
 Player.prototype.update = function() {
@@ -40,6 +36,7 @@ Player.prototype.update = function() {
   // this.vy *= 0.9; // friction
 
   this.reload += (this.reload%RELOAD_TIME == 0) ? 0 : 1;
+  this.jump_cooldown += (this.jump_cooldown%JUMPING_COOLDOWN == 0) ? 0 : 1;
 }
 
 Player.prototype.shoot = function(x, y) {
@@ -50,9 +47,10 @@ Player.prototype.shoot = function(x, y) {
 }
 
 Player.prototype.jump = function() {
-  if(this.vy == 0) {
+  if(this.vy == 0 && this.jump_cooldown % JUMPING_COOLDOWN == 0) {
     this.vy -= JUMP_SPEED;
-    keys.w = false;
+    // keys.w = false;
+    this.jump_cooldown = 1;
   }
 }
 
