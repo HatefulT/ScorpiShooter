@@ -78,7 +78,7 @@ Player.prototype.slowDownIfCollise = function (cbox, vx, vy) {
     needToSlowAgain = true;
   }
   if(needToSlowAgain) {
-    return this.slowDownIfCollise(cbox, (abs(newVx) < 0.25 ? 0 : newVx), (abs(newVy) < 0.25 ? 0 : newVy));
+    return this.slowDownIfCollise(cbox, (abs(newVx) < 0.5 ? 0 : newVx), (abs(newVy) < 0.5 ? 0 : newVy));
   } else return {vx: newVx, vy: newVy};
 };
 
