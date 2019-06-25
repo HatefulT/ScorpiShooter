@@ -3,7 +3,6 @@ var Player = function(x, y) {
   this.y = y;
   this.vy = 0;
   this.hp = 100;
-  // this.direction = true; // true - right, false - left;
   this.reload = 0;
   this.jump_cooldown = 0;
 }

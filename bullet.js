@@ -9,6 +9,9 @@ var Bullet = function(x, y, vx, vy) {
 }
 
 Bullet.prototype.update = function () {
+  if(this.x < 0 || this.y < 0 || this.x >= w || this.y >= h) {
+    delete bullets[bullets.indexOf(this)];
+  }
   this.x += this.vx;
   this.y += this.vy;
 }

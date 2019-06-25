@@ -30,7 +30,6 @@ var setup = function() {
 }
 
 var draw = function() {
-  // background(255);
   drawBackground();
   p.update();
   if(mouseIsPressed) {
@@ -39,8 +38,8 @@ var draw = function() {
   p.draw();
 
   for(var i=0; i<bullets.length; i++) {
-    bullets[i].update();
-    bullets[i].draw();
+    if(bullets[i] != undefined) bullets[i].update();
+    if(bullets[i] != undefined) bullets[i].draw();
   }
 
   for(var i=0; i<platforms.length; i++) {
