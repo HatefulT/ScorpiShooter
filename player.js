@@ -10,6 +10,10 @@ var Player = function(x, y) {
 Player.prototype.draw = function() {
   push();
   translate(this.x-PLAYER_W/2, this.y-PLAYER_H);
+  if(this.x-mouseX >= 0) {
+    scale(-1, 1);
+    translate(-PLAYER_W, 0);
+  }
   drawSprite(spritemap.player.normal, PLAYER_W, PLAYER_H);
   pop();
 }
