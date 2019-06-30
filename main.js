@@ -1,16 +1,19 @@
 var w, h;
 
-var PLAYER_W = 20,
-    PLAYER_H = 42,
+var PLAYER_W = ENEMY_W = 20,
+    PLAYER_H = ENEMY_H = 42,
     PLAYER_SPEED = 5,
+    ENEMY_SPEED = 4,
     RELOAD_TIME = 20,
     JUMP_SPEED = 20,
+    ENEMY_MIN_DISTANCE = 20,
     GRAVITY = 1,
     JUMPING_COOLDOWN = JUMP_SPEED / GRAVITY + 2;
 
 let player;
-var bullets = [];
-var platforms = [];
+var bullets = [],
+    platforms = [],
+    enemies = [];
 
 var keys = {
   w: false,
@@ -27,6 +30,8 @@ var setup = function() {
   platforms.push(new Platform(0, h-115, w));
   platforms.push(new Platform(w/2-100, h/2+50, 200));
   noSmooth();
+
+  enemies.push(new Enemy(w/2, 280));
 }
 
 var draw = function() {
@@ -40,6 +45,11 @@ var draw = function() {
   for(var i=0; i<bullets.length; i++) {
     if(bullets[i] != undefined) bullets[i].update();
     if(bullets[i] != undefined) bullets[i].draw();
+  }
+
+  for(var i=0; i<enemies.length; i++) {
+    if(enemies[i] != undefined) enemies[i].update();
+    if(enemies[i] != undefined) enemies[i].draw();
   }
 
   for(var i=0; i<platforms.length; i++) {
