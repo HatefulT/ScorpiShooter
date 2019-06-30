@@ -5,12 +5,16 @@ var Player = function(x, y) {
   this.hp = 100;
   this.reload = 0;
   this.jump_cooldown = 0;
+  this.runStep = 0;
 }
 
 Player.prototype.draw = function() {
   push();
   translate(this.x-PLAYER_W/2, this.y-PLAYER_H);
-  if(this.x-mouseX >= 0) {
+  if(this.vx < 0) {
+    scale(-1, 1);
+    translate(-PLAYER_W, 0);
+  } else if(this.x-mouseX >= 0) {
     scale(-1, 1);
     translate(-PLAYER_W, 0);
   }
@@ -21,6 +25,12 @@ Player.prototype.draw = function() {
   if(abs(this.vy) < JUMP_SPEED/2 && !this.onPlatform()) sprite = spritemap.player.jump[1];
   else if(this.vy <= JUMP_SPEED  && !this.onPlatform()) sprite = spritemap.player.jump[0];
   else if(this.vy >= JUMP_SPEED/2) sprite = spritemap.player.jump[2];
+  else if(this.onPlatform() && this.vx != 0) {
+    // console.log(this.vx);
+    sprite = spritemap.player.run[this.runStep];
+    if(frameCount % 8 == 0) 
+      this.runStep = (this.runStep+1 >= spritemap.player.run.length ? 0 : this.runStep+1);
+  }
   drawSprite(sprite, k * sprite.w, k * sprite.h);
   pop();
 }
@@ -28,19 +38,19 @@ Player.prototype.draw = function() {
 Player.prototype.update = function() {
   let cbox = this.getCBox();
 
-  var vx = 0;
+  this.vx = 0;
   if(keys.w) this.jump();
-  if(keys.a) vx -= PLAYER_SPEED;
-  if(keys.d) vx += PLAYER_SPEED;
-  if(this.x + vx + PLAYER_W/2 >= w || this.x + vx - PLAYER_W/2 < 0) vx = 0;
+  if(keys.a) this.vx -= PLAYER_SPEED;
+  if(keys.d) this.vx += PLAYER_SPEED;
+  if(this.x + this.vx + PLAYER_W/2 >= w || this.x + this.vx - PLAYER_W/2 < 0) this.vx = 0;
 
   this.vy += GRAVITY;
 
-  let a = this.slowDownIfCollise(cbox, vx, this.vy);
-  vx = a.vx;
+  let a = this.slowDownIfCollise(cbox, this.vx, this.vy);
+  this.vx = a.vx;
   this.vy = a.vy;
 
-  this.x += vx;
+  this.x += this.vx;
   this.y += this.vy;
 
   // this.vy *= 0.9; // friction
