@@ -17,9 +17,16 @@ Bullet.prototype.update = function () {
 }
 
 Bullet.prototype.draw = function () {
+  push();
+  translate(this.x, this.y);
+  // rotate(atan2(this.vy, this.vx));
+
   fill(0, 0, 0);
   noStroke();
-  rect(this.x-BULLET_W/2, this.y-BULLET_W/2, BULLET_W, BULLET_W);
+  var k = spritemap.bullet.w / spritemap.bullet.h;
+  // rect(0, 0, BULLET_W, BULLET_W);
+  drawSprite(spritemap.bullet, k * BULLET_W, BULLET_W);
+  pop();
 };
 Bullet.prototype.getCBox = function () {
   return { x: this.x-1, y: this.y-1, x1: this.x+1, y1: this.y+1 };
