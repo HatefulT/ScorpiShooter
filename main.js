@@ -48,25 +48,25 @@ var draw = function() {
 }
 
 var keyPressed = function() {
-  if(key == "w" || key == "ц" || key == " ") {
+  if(key.toLowerCase() == "w" || key.toLowerCase ( ) == "ц" || key.toLowerCase ( ) == " ") {
     keys.w = true;
-  } else if(key == 'a' || key == 'ф') {
+  } else if(key.toLowerCase ( ) == 'a' || key.toLowerCase ( ) == 'ф') {
     keys.a = true;
-  } else if(key == 's' || key == 'ы') {
+  } else if(key.toLowerCase ( ) == 's' || key.toLowerCase ( ) == 'ы') {
     keys.s = true;
-  } else if(key == 'd' || key == 'в') {
+  } else if(key.toLowerCase ( ) == 'd' || key.toLowerCase ( ) == 'в') {
     keys.d = true;
   }
 }
 
 var keyReleased = function() {
-  if(key == "w" || key == "ц" || key == ' ') {
+  if(key.toLowerCase ( ) == "w" || key.toLowerCase ( ) == "ц" || key.toLowerCase ( ) == ' ') {
     keys.w = false;
-  } else if(key == 'a' || key == 'ф') {
+  } else if(key.toLowerCase ( ) == 'a' || key.toLowerCase ( ) == 'ф') {
     keys.a = false;
-  } else if(key == 's' || key == 'ы') {
+  } else if(key.toLowerCase ( ) == 's' || key.toLowerCase ( ) == 'ы') {
     keys.s = false;
-  } else if(key == 'd' || key == 'в') {
+  } else if(key.toLowerCase ( ) == 'd' || key.toLowerCase ( ) == 'в') {
     keys.d = false;
   }
 }
