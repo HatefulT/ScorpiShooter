@@ -14,7 +14,12 @@ Player.prototype.draw = function() {
     scale(-1, 1);
     translate(-PLAYER_W, 0);
   }
-  drawSprite(spritemap.player.normal, PLAYER_W, PLAYER_H);
+
+  var sprite = spritemap.player.normal;
+  if(abs(this.vy) < JUMP_SPEED/2 && this.vy != 0) sprite = spritemap.player.jump[1];
+  else if(this.vy <= JUMP_SPEED && this.vy != 0) sprite = spritemap.player.jump[0];
+  else if(this.vy >= JUMP_SPEED/2 && this.vy != 0) sprite = spritemap.player.jump[2];
+  drawSprite(sprite, PLAYER_W, PLAYER_H);
   pop();
 }
 

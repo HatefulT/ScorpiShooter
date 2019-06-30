@@ -23,7 +23,12 @@ var drawSprite = function(obj, _w, _h) {
 
 let spritemap = {
   player: {
-    normal: { x: 0, y: 36, w: 10, h: 21 }
+    normal: { x: 0, y: 36, w: 10, h: 21 },
+    jump: [
+      { x: 18, y: 48, w: 12, h: 21 },
+      { x: 32, y: 48, w: 16, h: 19 },
+      { x: 50, y: 48, w: 17, h: 21 }
+    ]
   },
   platform: {
     left:  { x: 44,  y: 18, w: 23, h: 28 },
