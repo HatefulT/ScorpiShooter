@@ -70,23 +70,42 @@ Player.prototype.getCBox = function () {
 };
 
 Player.prototype.slowDownIfCollise = function (cbox, vx, vy, depth) {
-  var newVx = vx,
-      newVy = vy,
-      needToSlowAgain = false;
-  if(collide(moveCBox(cbox, vx, 0))) {
-    newVx /= 2;
-    needToSlowAgain = true;
-  }
-  if(collide(moveCBox(cbox, 0, vy))) {
-    newVy /= 2;
-    needToSlowAgain = true;
-  }
-  if(needToSlowAgain && (depth ? depth < 200 : true)) {
-    return this.slowDownIfCollise(cbox, (abs(newVx) < 0.5 ? 0 : newVx), (abs(newVy) < 0.5 ? 0 : newVy), depth+1);
-  } else if(depth > 200) {
-    return {vx: 0, vy: 0};
-  } else return {vx: newVx, vy: newVy};
+  // var newVx = vx,
+  //     newVy = vy,
+  //     needToSlowAgain = false;
+  // if(collide(moveCBox(cbox, vx, 0))) {
+  //   newVx /= 2;
+  //   needToSlowAgain = true;
+  // }
+  // if(collide(moveCBox(cbox, 0, vy))) {
+  //   newVy /= 2;
+  //   needToSlowAgain = true;
+  // }
+  // if(needToSlowAgain && (depth ? depth < 200 : true)) {
+  //   return this.slowDownIfCollise(cbox, (abs(newVx) < 0.5 ? 0 : newVx), (abs(newVy) < 0.5 ? 0 : newVy), depth+1);
+  // } else if(depth > 200) {
+  //   return {vx: 0, vy: 0};
+  // } else return {vx: newVx, vy: newVy};
+  return {vx: this.slowDownX(cbox, vx, 0), vy: this.slowDownY(cbox, vy, 0)};
 };
+
+Player.prototype.slowDownX = function(cbox, v, depth) {
+  if(depth > 200) return 0;
+  if(collide(moveCBox(cbox, v, 0))) {
+    return this.slowDownX(cbox, v, depth+1);
+  } else {
+    return v;
+  }
+}
+
+Player.prototype.slowDownY = function(cbox, v, depth) {
+  if(depth > 200) return 0;
+  if(collide(moveCBox(cbox, 0, v))) {
+    return this.slowDownY(cbox, v, depth+1);
+  } else {
+    return v;
+  }
+}
 
 var moveCBox = function(cbox, dx, dy) {
   return { x: cbox.x+dx, y: cbox.y+dy, x1: cbox.x1+dx, y1: cbox.y1+dy }
