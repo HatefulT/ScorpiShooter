@@ -15,11 +15,13 @@ Player.prototype.draw = function() {
     translate(-PLAYER_W, 0);
   }
 
+  const k = (PLAYER_W / spritemap.player.normal.w);
+
   var sprite = spritemap.player.normal;
-  if(abs(this.vy) < JUMP_SPEED/2 && this.vy != 0) sprite = spritemap.player.jump[1];
-  else if(this.vy <= JUMP_SPEED && this.vy != 0) sprite = spritemap.player.jump[0];
-  else if(this.vy >= JUMP_SPEED/2 && this.vy != 0) sprite = spritemap.player.jump[2];
-  drawSprite(sprite, PLAYER_W, PLAYER_H);
+  if(abs(this.vy) < JUMP_SPEED/2 && !this.onPlatform()) sprite = spritemap.player.jump[1];
+  else if(this.vy <= JUMP_SPEED  && !this.onPlatform()) sprite = spritemap.player.jump[0];
+  else if(this.vy >= JUMP_SPEED/2) sprite = spritemap.player.jump[2];
+  drawSprite(sprite, k * sprite.w, k * sprite.h);
   pop();
 }
 
@@ -75,23 +77,14 @@ Player.prototype.getCBox = function () {
 };
 
 Player.prototype.slowDownIfCollise = function (cbox, vx, vy, depth) {
-  // var newVx = vx,
-  //     newVy = vy,
-  //     needToSlowAgain = false;
-  // if(collide(moveCBox(cbox, vx, 0))) {
-  //   newVx /= 2;
-  //   needToSlowAgain = true;
-  // }
-  // if(collide(moveCBox(cbox, 0, vy))) {
-  //   newVy /= 2;
-  //   needToSlowAgain = true;
-  // }
-  // if(needToSlowAgain && (depth ? depth < 200 : true)) {
-  //   return this.slowDownIfCollise(cbox, (abs(newVx) < 0.5 ? 0 : newVx), (abs(newVy) < 0.5 ? 0 : newVy), depth+1);
-  // } else if(depth > 200) {
-  //   return {vx: 0, vy: 0};
-  // } else return {vx: newVx, vy: newVy};
   return {vx: this.slowDownX(cbox, vx, 0), vy: this.slowDownY(cbox, vy, 0)};
+};
+
+Player.prototype.onPlatform = function () {
+  if(collide(moveCBox(this.getCBox(), 0, GRAVITY))) {
+    return true;
+  }
+  return false;
 };
 
 Player.prototype.slowDownX = function(cbox, v, depth) {
