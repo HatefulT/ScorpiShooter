@@ -11,9 +11,11 @@ var Player = function(x, y) {
 Player.prototype.draw = function() {
   push();
   translate(this.x-PLAYER_W/2, this.y-PLAYER_H);
-  if(this.vx < 0) {
-    scale(-1, 1);
-    translate(-PLAYER_W, 0);
+  if(this.vx != 0) {
+    if(this.vx < 0) {
+      scale(-1, 1);
+      translate(-PLAYER_W, 0);
+    }
   } else if(this.x-mouseX >= 0) {
     scale(-1, 1);
     translate(-PLAYER_W, 0);
@@ -28,7 +30,7 @@ Player.prototype.draw = function() {
   else if(this.onPlatform() && this.vx != 0) {
     // console.log(this.vx);
     sprite = spritemap.player.run[this.runStep];
-    if(frameCount % 8 == 0) 
+    if(frameCount % 8 == 0)
       this.runStep = (this.runStep+1 >= spritemap.player.run.length ? 0 : this.runStep+1);
   }
   drawSprite(sprite, k * sprite.w, k * sprite.h);
