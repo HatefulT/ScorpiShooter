@@ -19,7 +19,7 @@ Bullet.prototype.update = function () {
 Bullet.prototype.draw = function () {
   push();
   translate(this.x, this.y);
-  // rotate(atan2(this.vy, this.vx));
+  rotate(atan2(this.vy, this.vx));
 
   fill(0, 0, 0);
   noStroke();
