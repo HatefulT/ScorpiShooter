@@ -1,17 +1,36 @@
 var BULLET_W = 4,
     BULLET_SPEED = 10;
 
-var Bullet = function(x, y, vx, vy) {
+var Bullet = function(x, y, vx, vy, type) {
   this.x = x;
   this.y = y;
   this.vx = vx;
   this.vy = vy;
+  this.ownerType = type; // false - player's shoot, true - enemy's shoot
 }
 
 Bullet.prototype.update = function () {
   if(this.x < 0 || this.y < 0 || this.x >= w || this.y >= h || collide(this.getCBox())) {
     delete bullets[bullets.indexOf(this)];
   }
+
+  let myCBox = this.getCBox();
+
+  if(!this.ownerType) {
+    for(var i=0; i<enemies.length; i++) {
+      if(enemies[i] === undefined) continue;
+      if(intersect(myCBox, enemies[i].getCBox())) {
+        enemies[i].hp -= BULLET_DMG;
+        delete bullets[bullets.indexOf(this)];
+      }
+    }
+  } else {
+    if(intersect(myCBox, p.getCBox())) {
+      p.hp -= BULLET_DMG;
+      delete bullets[bullets.indexOf(this)];
+    }
+  }
+
   this.x += this.vx;
   this.y += this.vy;
 }

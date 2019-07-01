@@ -5,6 +5,8 @@ var PLAYER_W = ENEMY_W = 20,
     PLAYER_SPEED = 5,
     ENEMY_SPEED = 4,
     RELOAD_TIME = 20,
+    ENEMY_RELOAD_TIME = 25,
+    BULLET_DMG = 10,
     JUMP_SPEED = 20,
     ENEMY_MIN_DISTANCE = 20,
     GRAVITY = 1,
@@ -55,6 +57,13 @@ var draw = function() {
   for(var i=0; i<platforms.length; i++) {
     platforms[i].draw();
   }
+
+  translate(5, h-spritemap.redcross.h-5);
+  drawSprite(spritemap.redcross);
+  textSize(spritemap.redcross.h);
+  stroke(255, 20, 20);
+  fill(255, 20, 20);
+  text(p.hp, spritemap.redcross.w + 2, spritemap.redcross.h);
 }
 
 var keyPressed = function() {

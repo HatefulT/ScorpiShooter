@@ -4,9 +4,14 @@ var Enemy = function(x, y) {
   this.vx = 0;
   this.vy = 0;
   this.runStep = 0;
+  this.reloading = 0;
+  this.hp = 100;
 }
 
 Enemy.prototype.update = function() {
+  if(this.hp === 0) {
+    delete enemies[enemies.indexOf(this)];
+  }
   this.vx = 0;
   if(this.x - p.x < -ENEMY_MIN_DISTANCE) {  // go left
     this.vx = ENEMY_SPEED;
@@ -22,6 +27,12 @@ Enemy.prototype.update = function() {
 
   this.x += this.vx;
   this.y += this.vy;
+
+  if(this.reloading % ENEMY_RELOAD_TIME === 0) {
+    this.shoot();
+    this.reloading = 0;
+  }
+  this.reloading++;
 }
 
 Enemy.prototype.getCBox = function () {
@@ -34,6 +45,11 @@ Enemy.prototype.onPlatform = function (cbox) {
   }
   return false;
 };
+
+Enemy.prototype.shoot = function() {
+  let a = atan2(p.y-this.y, p.x-this.x);
+  bullets.push(new Bullet(this.x, this.y-ENEMY_H/2, cos(a)*BULLET_SPEED, sin(a)*BULLET_SPEED, true));
+}
 
 Enemy.prototype.draw = function () {
   push();
@@ -53,6 +69,18 @@ Enemy.prototype.draw = function () {
      this.runStep = (this.runStep+1 >= spritemap.enemy.run.length ? 0 : this.runStep+1);
   }
   drawSprite(sprite, k * sprite.w, k * sprite.h);
+
+  pop();
+  push();
+  translate(this.x-ENEMY_W/2, this.y-1.3*ENEMY_H);
+
+  fill(128, 128, 128);
+  noStroke();
+  rect(0, 0, ENEMY_W, ENEMY_H/4, ENEMY_W/10);
+
+  fill(255, 20, 20);
+  noStroke();
+  rect(0, 0, ENEMY_W/100 *this.hp, ENEMY_H/4, ENEMY_W/10);
 
   pop();
 };
