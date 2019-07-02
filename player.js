@@ -22,7 +22,7 @@ Player.prototype.draw = function() {
     translate(-PLAYER_W, 0);
   }
 
-  const k = (PLAYER_W / spritemap.player.normal.w);
+  const k = (PLAYER_H / spritemap.player.normal.h);
 
   var sprite = spritemap.player.normal;
   if(abs(this.vy) < JUMP_SPEED/2 && !this.onPlatform()) sprite = spritemap.player.jump[1];
@@ -70,7 +70,7 @@ Player.prototype.shoot = function(x, y) {
 }
 
 Player.prototype.jump = function() {
-  if(this.vy == 0 && this.jump_cooldown % JUMPING_COOLDOWN == 0) {
+  if(this.onPlatform() && this.jump_cooldown % JUMPING_COOLDOWN == 0) {
     this.vy -= JUMP_SPEED;
     // keys.w = false;
     this.jump_cooldown = 1;
@@ -101,18 +101,18 @@ Player.prototype.onPlatform = function () {
 };
 
 Player.prototype.slowDownX = function(cbox, v, depth) {
-  if(depth > 200) return 0;
+  if(depth > 50) return 0;
   if(collide(moveCBox(cbox, v, 0))) {
-    return this.slowDownX(cbox, v, depth+1);
+    return this.slowDownX(cbox, v/2, depth+1);
   } else {
     return v;
   }
 }
 
 Player.prototype.slowDownY = function(cbox, v, depth) {
-  if(depth > 200) return 0;
+  if(depth > 50) return 0;
   if(collide(moveCBox(cbox, 0, v))) {
-    return this.slowDownY(cbox, v, depth+1);
+    return this.slowDownY(cbox, v/2, depth+1);
   } else {
     return v;
   }
