@@ -11,7 +11,8 @@ const PLAYER_W = ENEMY_W = 20,
     JUMP_SPEED = 20,
     ENEMY_MIN_DISTANCE = 70,
     GRAVITY = 1,
-    JUMPING_COOLDOWN = JUMP_SPEED / GRAVITY;
+    JUMPING_COOLDOWN = JUMP_SPEED / GRAVITY,
+    PLATFORM_H = 20;
 
 let player;
 var bullets = [],
