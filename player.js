@@ -39,6 +39,11 @@ Player.prototype.draw = function() {
 }
 
 Player.prototype.update = function() {
+  if(this.hp <= 0) {
+    gameStarted = false;
+    isDead = true;
+    return;
+  }
   let cbox = this.getCBox();
 
   this.vx = 0;

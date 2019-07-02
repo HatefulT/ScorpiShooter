@@ -26,21 +26,21 @@ var keys = {
   space: false
 };
 
-var gameStarted = false;
+var gameStarted = false,
+    isDead = false;
 
 var setup = function() {
   w = window.innerWidth; h = window.innerHeight;
   createCanvas(w, h);
   noSmooth();
   menu.setup();
+  gameover.setup();
 }
 
 var draw = function() {
-  if(gameStarted) {
-    game.draw();
-    return;
-  }
-  menu.draw();
+  if(gameStarted) game.draw();
+  else if(isDead) gameover.draw();
+  else menu.draw();
 }
 
 var keyPressed = function() {

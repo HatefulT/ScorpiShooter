@@ -1,6 +1,10 @@
 var game = {
   setup: function() {
     p = new Player(30, h-200);
+    enemies = [];
+    platforms = [];
+    bullets = [];
+    
     platforms.push(new Platform(0, h-115, w));
     platforms.push(new Platform(w/2-100, h/2+50, 200));
 
