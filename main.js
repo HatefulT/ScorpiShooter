@@ -1,16 +1,17 @@
 var w, h;
 
-var PLAYER_W = ENEMY_W = 20,
+const PLAYER_W = ENEMY_W = 20,
     PLAYER_H = ENEMY_H = 42,
     PLAYER_SPEED = 5,
     ENEMY_SPEED = 4,
     RELOAD_TIME = 20,
     ENEMY_RELOAD_TIME = 25,
     BULLET_DMG = 10,
+    BULLET_SPREAD = 0.2,
     JUMP_SPEED = 20,
-    ENEMY_MIN_DISTANCE = 20,
+    ENEMY_MIN_DISTANCE = 70,
     GRAVITY = 1,
-    JUMPING_COOLDOWN = JUMP_SPEED / GRAVITY + 2;
+    JUMPING_COOLDOWN = JUMP_SPEED / GRAVITY;
 
 let player;
 var bullets = [],

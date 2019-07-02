@@ -64,16 +64,15 @@ Player.prototype.update = function() {
 
 Player.prototype.shoot = function(x, y) {
   if(this.reload % RELOAD_TIME != 0) return;
-  a = Math.atan2(y-this.y, x-this.x,);
+  a = Math.atan2(y-this.y, x-this.x) + random(-BULLET_SPREAD, BULLET_SPREAD);
   bullets.push(new Bullet(this.x, this.y - PLAYER_H/2, BULLET_SPEED*cos(a), BULLET_SPEED*sin(a), false));
   this.reload = 1;
 }
 
 Player.prototype.jump = function() {
   if(this.onPlatform() && this.jump_cooldown % JUMPING_COOLDOWN == 0) {
-    this.vy -= JUMP_SPEED;
-    // keys.w = false;
-    this.jump_cooldown = 1;
+    this.vy = -JUMP_SPEED;
+    this.jump_cooldown = 0;
   }
 }
 

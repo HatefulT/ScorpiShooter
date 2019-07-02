@@ -47,7 +47,7 @@ Enemy.prototype.onPlatform = function (cbox) {
 };
 
 Enemy.prototype.shoot = function() {
-  let a = atan2(p.y-this.y, p.x-this.x);
+  let a = atan2(p.y-this.y, p.x-this.x) + random(-BULLET_SPREAD, BULLET_SPREAD);
   bullets.push(new Bullet(this.x, this.y-ENEMY_H/2, cos(a)*BULLET_SPEED, sin(a)*BULLET_SPEED, true));
 }
 
