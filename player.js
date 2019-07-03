@@ -39,6 +39,13 @@ Player.prototype.draw = function() {
 }
 
 Player.prototype.update = function() {
+  if(this.x + PLAYER_W/2 >= w) {
+    game.createLocation();
+    this.x = PLAYER_W;
+    this.y = h-100;
+    return;
+  }
+
   if(this.hp <= 0) {
     gameStarted = false;
     isDead = true;
@@ -50,7 +57,7 @@ Player.prototype.update = function() {
   if(keys.w) this.jump();
   if(keys.a) this.vx -= PLAYER_SPEED;
   if(keys.d) this.vx += PLAYER_SPEED;
-  if(this.x + this.vx + PLAYER_W/2 >= w || this.x + this.vx - PLAYER_W/2 < 0) this.vx = 0;
+  if(this.x + this.vx - PLAYER_W/2 < 0) this.vx = 0;
 
   this.vy += GRAVITY;
 

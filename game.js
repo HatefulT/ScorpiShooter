@@ -1,11 +1,9 @@
 var game = {
   setup: function() {
-    p = new Player(30, h-200);
+    p = new Player(30, h-100);
     bullets = [];
 
-    let a = game.createLocation();
-    platforms = a.platforms;
-    enemies = a.enemies;
+    game.createLocation();
   },
   draw: function() {
     drawBackground();
@@ -38,18 +36,17 @@ var game = {
     text(p.hp, spritemap.redcross.w + 2, spritemap.redcross.h);
   },
   createLocation: function() {
-    var plats = [],
-        enemies = [];
+    platforms = [];
+    enemies = [];
     const H = h / PLATFORM_H;
     var n = round(random(4, 5));
-    plats.push(new Platform(0, h-H, w));
+    platforms.push(new Platform(0, h-H, w));
     for(var i=0; i<n; i++) {
       let x = round(random(w-100)),
-          y = H+i*(h-2*H)/n,
-          _w = round(random(100, w/2));
-      plats.push(new Platform(x, y, _w));
+          y = 2*H+i*(h-3*H)/n,
+          _w = min(round(random(100, w/2)), w-x);
+      platforms.push(new Platform(x, y, _w));
       enemies.push(new Enemy(random(x, x+_w), y-2));
     }
-    return {platforms: plats, enemies: enemies};
   }
 }
