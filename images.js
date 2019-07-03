@@ -1,11 +1,13 @@
 let bg;
 let spriteshit;
 let menu_img;
+let deathSigns;
 
 var preload = function() {
   bg = loadImage("assets/1.png");
   spriteshit = loadImage("assets/sprites.png");
   menu_img = loadImage("assets/menu.png");
+  deathSigns = loadImage("assets/deathSigns.png");
 }
 
 var drawBackground = function() {
@@ -21,6 +23,10 @@ var drawBackground = function() {
 var drawSprite = function(obj, _w, _h) {
   if(_w && _h) image(spriteshit, 0, 0, _w, _h, obj.x, obj.y, obj.w, obj.h);
   else image(spriteshit, 0, 0, obj.w, obj.h, obj.x, obj.y, obj.w, obj.h);
+}
+
+var drawDeathSign = function(obj) {
+  image(deathSigns, 0, 0, obj.w, obj.h, obj.x, obj.y, obj.w, obj.h);
 }
 
 let spritemap = {
@@ -70,5 +76,13 @@ let spritemap = {
     ]
   },
   redcross: { x: 0, y: 150, w: 17, h: 17 },
-  bullet_icon: { x: 1, y: 170, w: 15, h: 14 }
+  bullet_icon: { x: 1, y: 170, w: 15, h: 14 },
+  deathsigns: [
+    { x: 0, y: 0,   w: 432, h: 64 },
+    { x: 0, y: 66,  w: 552, h: 60 },
+    { x: 0, y: 140, w: 569, h: 48 },
+    { x: 0, y: 192, w: 368, h: 80 },
+    { x: 0, y: 272, w: 352, h: 64 }
+  ],
+  btn_to_menu: { x: 0, y: 353, w: 355, h: 60 }
 }

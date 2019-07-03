@@ -2,7 +2,7 @@ var game = {
   setup: function() {
     p = new Player(30, h-100);
     bullets = [];
-
+    gameover.choosed = -1;
     game.createLocation();
   },
   draw: function() {
