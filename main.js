@@ -5,7 +5,7 @@ const PLAYER_W = ENEMY_W = 20,
     PLAYER_SPEED = 5,
     ENEMY_SPEED = 4,
     RELOAD_TIME = 20,
-    ENEMY_RELOAD_TIME = 25,
+    ENEMY_RELOAD_TIME = 50,
     BULLET_DMG = 10,
     BULLET_SPREAD = 0.2,
     JUMP_SPEED = 20,
@@ -35,7 +35,6 @@ var setup = function() {
   w = window.innerWidth; h = window.innerHeight;
   createCanvas(w, h);
   noSmooth();
-  menu.setup();
   gameover.setup();
 }
 

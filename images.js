@@ -1,11 +1,11 @@
 let bg;
 let spriteshit;
-let scorpi_text;
+let menu_img;
 
 var preload = function() {
   bg = loadImage("assets/1.png");
   spriteshit = loadImage("assets/sprites.png");
-  scorpi_text = loadImage("assets/scorpi.png");
+  menu_img = loadImage("assets/menu.png");
 }
 
 var drawBackground = function() {
