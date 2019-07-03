@@ -44,7 +44,11 @@ var game = {
     var n = round(random(4, 5));
     plats.push(new Platform(0, h-H, w));
     for(var i=0; i<n; i++) {
-      plats.push(new Platform(round(random(w-100)), H+i*(h-2*H)/n, round(random(100, w/2))));
+      let x = round(random(w-100)),
+          y = H+i*(h-2*H)/n,
+          _w = round(random(100, w/2));
+      plats.push(new Platform(x, y, _w));
+      enemies.push(new Enemy(random(x, x+_w), y-2));
     }
     return {platforms: plats, enemies: enemies};
   }

@@ -12,11 +12,18 @@ Enemy.prototype.update = function() {
   if(this.hp === 0) {
     delete enemies[enemies.indexOf(this)];
   }
+
   this.vx = 0;
-  if(this.x - p.x < -ENEMY_MIN_DISTANCE) {  // go left
-    this.vx = ENEMY_SPEED;
-  } else if(this.x - p.x > ENEMY_MIN_DISTANCE){
-    this.vx = -ENEMY_SPEED;
+  if(dist(this.x, this.y, p.x, p.y) < ENEMY_LOOK_DISTANCE) {
+    if(this.x - p.x < -ENEMY_MIN_DISTANCE) {  // go left
+      this.vx = ENEMY_SPEED;
+    } else if(this.x - p.x > ENEMY_MIN_DISTANCE){
+      this.vx = -ENEMY_SPEED;
+    }
+    if(this.reloading % ENEMY_RELOAD_TIME === 0) {
+      this.shoot();
+      this.reloading = 0;
+    }
   }
 
   this.vy += GRAVITY;
@@ -28,10 +35,6 @@ Enemy.prototype.update = function() {
   this.x += this.vx;
   this.y += this.vy;
 
-  if(this.reloading % ENEMY_RELOAD_TIME === 0) {
-    this.shoot();
-    this.reloading = 0;
-  }
   this.reloading++;
 }
 
