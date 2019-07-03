@@ -27,6 +27,16 @@ var game = {
       platforms[i].draw();
     }
 
+    for(var i=0; i<drops.length; i++) {
+      if(drops[i] != undefined) {
+        if(intersect(drops[i].getCBox(), p.getCBox())) {
+          if(drops[i].type === 0) p.hp += 10;
+          else if(drops[i].type === 1) p.bullets += 40;
+          delete drops[i];
+        } else drops[i].draw();
+      }
+    }
+
     textSize(spritemap.redcross.h);
     stroke(255, 20, 20);
     fill(255, 20, 20);
@@ -47,11 +57,13 @@ var game = {
   createLocation: function() {
     platforms = [];
     enemies = [];
+    drops = [];
+
     const H = h / PLATFORM_H;
     var n = round(random(4, 5));
     platforms.push(new Platform(0, h-H, w));
     for(var i=0; i<n; i++) {
-      let x = round(random(w-100)),
+      let x = (i+1 === n) ? round(random(100, w-100)) : round(random(w-100)),
           y = 2*H+i*(h-3*H)/n,
           _w = min(round(random(100, w/2)), w-x);
       platforms.push(new Platform(x, y, _w));
