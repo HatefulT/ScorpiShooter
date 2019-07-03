@@ -69,5 +69,6 @@ let spritemap = {
       { x: 37, y: 132, w: 13, h: 23 }
     ]
   },
-  redcross: { x: 0, y: 150, w: 17, h: 17 }
+  redcross: { x: 0, y: 150, w: 17, h: 17 },
+  bullet_icon: { x: 1, y: 170, w: 15, h: 14 }
 }

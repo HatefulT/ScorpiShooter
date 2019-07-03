@@ -27,13 +27,22 @@ var game = {
       platforms[i].draw();
     }
 
-    translate(5, h-spritemap.redcross.h-5);
-    drawSprite(spritemap.redcross);
     textSize(spritemap.redcross.h);
     stroke(255, 20, 20);
     fill(255, 20, 20);
     textAlign(LEFT);
+
+    push();
+
+    translate(5, h-spritemap.redcross.h-5);
+    drawSprite(spritemap.redcross);
     text(p.hp, spritemap.redcross.w + 2, spritemap.redcross.h);
+
+    pop();
+
+    translate(5+80, h-PLATFORM_H);
+    drawSprite(spritemap.bullet_icon);
+    text(p.bullets, spritemap.redcross.w + 2, spritemap.redcross.h);
   },
   createLocation: function() {
     platforms = [];

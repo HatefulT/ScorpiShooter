@@ -7,6 +7,7 @@ var Player = function(x, y) {
   this.jump_cooldown = 0;
   this.runStep = 0;
   this.hp = 100;
+  this.bullets = 100;
 }
 
 Player.prototype.draw = function() {
@@ -75,10 +76,11 @@ Player.prototype.update = function() {
 }
 
 Player.prototype.shoot = function(x, y) {
-  if(this.reload % RELOAD_TIME != 0) return;
+  if(this.reload % RELOAD_TIME != 0 || this.bullets <= 0) return;
   a = Math.atan2(y-this.y, x-this.x) + random(-BULLET_SPREAD, BULLET_SPREAD);
   bullets.push(new Bullet(this.x, this.y - PLAYER_H/2, BULLET_SPEED*cos(a), BULLET_SPEED*sin(a), false));
   this.reload = 1;
+  this.bullets --;
 }
 
 Player.prototype.jump = function() {
