@@ -8,6 +8,7 @@ var Player = function(x, y) {
   this.runStep = 0;
   this.hp = 100;
   this.bullets = 100;
+  this.kills = 0;
 }
 
 Player.prototype.draw = function() {

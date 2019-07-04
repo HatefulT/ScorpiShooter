@@ -10,6 +10,7 @@ var Enemy = function(x, y) {
 
 Enemy.prototype.update = function() {
   if(this.hp === 0) {
+    p.kills ++;
     drops.push(new Drop(this.x, this.y, round(random(1))));
     delete enemies[enemies.indexOf(this)];
   }
