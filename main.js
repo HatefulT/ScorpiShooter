@@ -14,7 +14,9 @@ const PLAYER_W = ENEMY_W = 20,
     GRAVITY = 1,
     JUMPING_COOLDOWN = JUMP_SPEED / GRAVITY,
     PLATFORM_H = 20,
-    DROP_W = 20;
+    DROP_W = 20,
+    REGENERATION_HP = 10,
+    REGENERATION_TIME = 30;
 
 let player;
 var bullets = [],
