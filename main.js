@@ -16,7 +16,7 @@ const PLAYER_W = ENEMY_W = 20,
     PLATFORM_H = 20,
     DROP_W = 20,
     REGENERATION_HP = 10,
-    REGENERATION_TIME = 30;
+    REGENERATION_TIME = 60;
 
 let player;
 var bullets = [],
