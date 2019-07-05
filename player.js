@@ -9,6 +9,7 @@ var Player = function(x, y) {
   this.hp = 100;
   this.bullets = 100;
   this.kills = 0;
+  this.regeneraionTick = 0;
 }
 
 Player.prototype.draw = function() {
@@ -53,6 +54,12 @@ Player.prototype.update = function() {
     isDead = true;
     return;
   }
+
+  if(this.hp <= 100-REGENERATION_HP && this.regeneraionTick % REGENERATION_TIME === 0) {
+    this.hp += REGENERATION_HP;
+  }
+  this.regeneraionTick ++;
+
   let cbox = this.getCBox();
 
   this.vx = 0;
