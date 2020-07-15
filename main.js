@@ -36,7 +36,8 @@ var gameStarted = false,
     isDead = false;
 
 var setup = function() {
-  w = window.innerWidth; h = window.innerHeight;
+  w = window.innerWidth < 610 ? window.innerWidth : 607;
+  h = window.innerHeight < 510 ? window.innerHeight : 500;
   createCanvas(w, h);
   noSmooth();
   gameover.setup();
